@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" href="../static/login.css">
+    </head>
+    <body>
+        <div class="login">
+            <ul>
+                <li>
+                    <form action={{ base_url }}"/auth" method="POST">
+                        <h3>Sign up</h3>
+                        <hr>
+                        <p><input type="text" name="username" maxlength="32" placeholder="Username"/></p>
+                        <p><input type="password" name="password" placeholder="Password"/></p>
+                        <p><input type="submit" value="Sign up"/></p>
+                    </form>
+                </li>
+                <li>
+                    <form action={{ base_url }}"/auth" method="POST">
+                        <h3>Sign in</h3>
+                        <hr>
+                        <p><input type="text" name="username" maxlength="32" placeholder="Username"/></p>
+                        <p><input type="password" name="password" placeholder="Password"/></p>
+                        <p><input type="submit" value="Sign in"/></p>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

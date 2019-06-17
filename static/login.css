@@ -1,0 +1,34 @@
+@import 'https://fonts.googleapis.com/css?family=Quicksand:300';
+
+html, body {
+    padding: 0;
+    margin: 0;
+
+    display: inline;
+
+    font-family: 'Quicksand', 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+
+    background: rgb(23, 23, 23);
+    color: rgb(255, 125, 15) !important;
+
+    font-size: 32px;
+}
+
+li {
+    list-style: none;
+    display: inline-table;
+    text-align: center;
+    width: 100%;
+}
+
+.login {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+form {
+    border: 1px solid white;
+    padding: 10px;
+}
