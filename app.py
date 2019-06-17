@@ -12,3 +12,5 @@ def index():
 
 if __name__ == '__main__':
     app.run(**config.FLASK_RUN_CONFIG)
+
+# pep8
