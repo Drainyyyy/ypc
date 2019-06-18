@@ -1,1 +1,2 @@
-flask
+werkzeug
+flask==1.0.3
