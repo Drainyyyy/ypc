@@ -20,7 +20,7 @@ def index():
 
 @app.route("/login", methods=["POST", "GET"])
 def sign():
-    return render_template("login.html", base_url=request.url_root)
+    return render_template("login.html", base_url=request.url_root)# TODO remove and use JS
 
 
 @app.route('/auth', methods=["POST", "GET"])
