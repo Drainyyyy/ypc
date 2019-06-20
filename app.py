@@ -4,7 +4,6 @@ from werkzeug.exceptions import BadRequestKeyError
 import config
 from models.account import Account
 from utilities.auth import Auth
-from utilities import accmanager
 
 app = Flask(__name__)
 logged_in = False
