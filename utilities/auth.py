@@ -11,13 +11,6 @@ class Auth:
 
     def login(self):
         for acc in users:
-            print(acc is self.account)
-            print(acc.username)
-            print(acc.password)
-            print(acc.uid)
-            print(self.account.username)
-            print(self.account.password)
-            print(self.account.uid)     # TODO accounts not the same
             if acc is self.account:
                 return True
             else:
