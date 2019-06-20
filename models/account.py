@@ -1,46 +1,99 @@
-class Account:
-    """A model for the users account.
+import typing
 
-        This class gives all data for the account of a user.
+from utilities import pwhandler
 
-        :param username: self-explaining
-        :param password: self-explaining
-        :param uid: The unique unambiguous identifier for the user
-        :param admin: Indicates if the account is an administrator for the chat
-        :param accepted: Indicates if the account got accepted for joining the chat by a chat admin
-        :param banned: self-explaining
-        :type username: str
-        :type uid: int
-        :type password: str
-        :type admin: bool
-        :type accepted: bool
-        :type banned: bool
-        """
-    # TODO encrypt password/make as hash
+__all__ = ["RejectedAccount", "DefaultAccount", "AdminAccount", "OwnerAccount"]
 
-    def __init__(self, username: str, password: str, uid: int, admin: bool = False, accepted: bool = False, banned: bool = False):
+
+class _BaseAccount:
+    """Base model for every account type.
+
+    :param username: Self-explaining
+    :param password: Self-explaining
+    :param uid: The unique identification number for each account on the server.
+    :type username: str
+    :type password: str
+    :type uid: int
+    """
+
+    __slots__ = ["username", "password", "uid"]
+
+    def __init__(self, username: str, password: str, uid: int):
         self.username = username
-        self.password = password
+        self.password = pwhandler.encrypt(password)
         self.uid = uid
+
+
+class _AcceptedAccount(_BaseAccount):
+    """Model for an accepted account.
+
+    Accepted accounts are accounts that got accepted to join the chat by an administrator of the server.
+
+    :param admin: Indicator if the member is an administrator of the chat
+    :param banned: Represents the ban status of the user
+    :type admin: bool
+    :type banned: bool
+    """
+
+    __slots__ = ["admin", "banned"]
+
+    def __init__(self, username: str, password: str, uid: int, admin: bool = False, banned: bool = False):
+        super().__init__(username, password, uid)
         self.admin = admin
-        self.accepted = accepted
         self.banned = banned
 
-    def __str__(self):
+
+class DefaultAccount(_AcceptedAccount):
+    """Model for the default account type.
+
+    This account type is for normal users. There are no special permissions or similar given.
+    """
+
+    def __init__(self, username: str, password: str, uid: int, banned: bool = False):
+        super().__init__(username, password, uid, admin=False, banned=banned)
+
+    def send(self, message):
+        #   TODO sending messages
+        return message
+
+
+class AdminAccount(_AcceptedAccount):
+    """Model for the administrator account type.
+
+    An administrator account can manage messages and administrate the chat.
+    """
+
+    def __init__(self, username: str, password: str, uid: int, banned: bool = False):
+        super().__init__(username, password, uid, admin=True, banned=banned)
+
+    def ban(self, member: DefaultAccount):
+        member.banned = True  # TODO make ban screen
         return self.username
 
-    def ban(self):
-        """Set the ban status of the user to True. This won't allow the user to join the chat anymore."""
-        self.banned = True
 
-    def unban(self):
-        """Set the ban status of the user to False. This will revoke the ban."""
-        self.banned = False
+class OwnerAccount(_AcceptedAccount):
+    """Model for the account type of the server owner.
 
-    def accept(self):
-        """Accept the user for joining the chat"""
-        self.accepted = True
+    The server owner can basically do everything, e.g. ban administrators, which administrator accounts can't.
+    """
 
-    def decline(self):
-        """Set the banned status of the user to True and the accepted status will remain on False."""
-        self.banned = True
+    def __init__(self, username: str, password: str, uid: int):
+        super().__init__(username, password, uid)
+
+    def ban(self, member: typing.Union[AdminAccount, DefaultAccount]):
+        member.banned = True    # TODO make ban screen
+        return self.username
+    # TODO more functions
+
+
+class RejectedAccount(_BaseAccount):
+    """Model for a rejected account.
+
+    A rejected account is the account of a user that got rejected when registering (which equals applying) for the chat.
+    """
+
+    __slots__ = ["reason"]
+
+    def __init__(self, username: str, password: str, uid: int, reason: str):
+        super().__init__(username, password, uid)
+        self.reason = reason
