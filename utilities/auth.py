@@ -1,3 +1,7 @@
+#  Copyright (c) 2019. Drainyyy
+#  This project is covered by MIT License
+#  https://opensource.org/licenses/MIT
+
 from models.account import Account
 
 # TODO switch to Config instead of users dict

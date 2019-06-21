@@ -1,3 +1,7 @@
+#  Copyright (c) 2019. Drainyyy
+#  This project is covered by MIT License
+#  https://opensource.org/licenses/MIT
+
 from flask import Flask, redirect, render_template, request
 from werkzeug.exceptions import BadRequestKeyError
 
