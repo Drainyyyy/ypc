@@ -8,7 +8,7 @@ from flask import Flask, redirect, render_template, request
 from werkzeug.exceptions import BadRequestKeyError
 
 import config
-from models.account import Account
+from models.account import DefaultAccount, RejectedAccount, _BaseAccount
 from utilities.auth import Auth
 
 app = Flask(__name__)
@@ -34,7 +34,7 @@ def auth():
     try:
         username = request.form["username"]
         password = request.form["password"]
-        authentication = Auth(Account(username, password, 0)).login()
+        authentication = Auth(DefaultAccount(username, password, 0)).login()
         if authentication:
             return redirect("/chat")
         else:
