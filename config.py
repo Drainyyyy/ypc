@@ -4,6 +4,8 @@
 #  This project is covered by MIT License
 #  https://opensource.org/licenses/MIT
 
+__all__ = ["FLASK_RUN_CONFIG"]
+
 FLASK_RUN_CONFIG = {
     "host": "localhost",
     "port": 25163,
