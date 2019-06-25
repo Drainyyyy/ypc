@@ -20,29 +20,50 @@ html, body {
     font-size: 32px;
 }
 
-li {
-    list-style: none;
-    display: inline-table;
+.login {
+    border: 1px solid rgba(255, 125, 15, 0.5);
+    border-radius: 5px;
+    padding: 10px 80px 80px 80px;
     text-align: center;
+    transition: .5s
 }
 
-.login {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.login:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: .5s;
+}
+
+.login h3 {
+    padding-bottom: 20%;
+}
+
+.login input {
+    padding: 5%;
+    border: 1px solid currentColor;
+    color: currentColor;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.login input:focus {
+    outline: none;
 }
 
 #signin {
-    padding: 50px;
-    border: 5px solid currentColor;
+    position: absolute;
+    right: 30%;
+    top: 50%;
+    transform: translate(0%, -50%);
     border-radius: 5px;
-    background-color: rgb(46, 46, 46);
+    border: 1px solid currentColor;
+
 }
 
 #signup {
-    padding: 50px;
-    border: 5px solid currentColor;
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    transform: translate(0%, -50%);
     border-radius: 5px;
-    background-color: rgb(46, 46, 46);
+    border: 1px solid currentColor;
 }
