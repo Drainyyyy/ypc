@@ -6,10 +6,12 @@
 
 from flask import Flask, redirect, render_template, request
 from werkzeug.exceptions import BadRequestKeyError
+from werkzeug.utils import escape
+
+from backend.api.models.account import DefaultAccount
+from backend.api.utilities.auth import Auth
 
 import config
-from models.account import DefaultAccount, RejectedAccount, _BaseAccount
-from utilities.auth import Auth
 
 app = Flask(__name__)
 logged_in = False
@@ -26,13 +28,13 @@ def index():
 
 @app.route("/login", methods=["POST", "GET"])
 def sign():
-    return render_template("login.html", base_url=request.url_root)# TODO remove and use JS
+    return render_template("login.html", base_url=request.url_root)     # TODO remove and use JS
 
 
 @app.route('/auth', methods=["POST", "GET"])
 def auth():
     try:
-        username = request.form["username"]
+        username = escape(request.form["username"])  # TODO security
         password = request.form["password"]
         authentication = Auth(DefaultAccount(username, password, 0)).login()
         if authentication:

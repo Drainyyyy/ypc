@@ -6,7 +6,7 @@
 
 import typing
 
-from utilities import pwhandler
+from api.utilities import pwhandler
 
 __all__ = ["DefaultAccount", "AdminAccount", "OwnerAccount", "RejectedAccount"]
 
