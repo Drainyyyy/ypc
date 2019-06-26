@@ -14,7 +14,6 @@ from utilities.auth import Auth
 app = Flask(__name__)
 logged_in = False
 
-# TODO Copyright!
 @app.route("/")
 def index():
     print(request.base_url)
