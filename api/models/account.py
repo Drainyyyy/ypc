@@ -63,7 +63,7 @@ class DefaultAccount(_AcceptedAccount):
         return message
 
 
-class AdminAccount(_AcceptedAccount):
+class AdminAccount(_AcceptedAccount, DefaultAccount):
     """Model for the administrator account type.
 
     An administrator account can manage messages and administrate the chat.
@@ -78,7 +78,7 @@ class AdminAccount(_AcceptedAccount):
         return self.username
 
 
-class OwnerAccount(_AcceptedAccount):
+class OwnerAccount(_AcceptedAccount, DefaultAccount):
     """Model for the account type of the server owner.
 
     The server owner can basically do everything, e.g. ban administrators, which administrator accounts can't.
