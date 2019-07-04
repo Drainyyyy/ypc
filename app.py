@@ -4,12 +4,12 @@
 #  This project is covered by MIT License
 #  https://opensource.org/licenses/MIT
 
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, request
 from werkzeug.exceptions import BadRequestKeyError
 from werkzeug.utils import escape
 
-from backend.api.models.account import DefaultAccount
-from backend.api.utilities.auth import Auth
+from accounts.api.models.account import DefaultAccount
+from accounts.api.utilities.auth import Auth
 
 import config
 
@@ -28,7 +28,7 @@ def index():
 
 @app.route("/login", methods=["POST", "GET"])
 def sign():
-    return render_template("login.html", base_url=request.url_root)     # TODO remove and use JS
+    return None
 
 
 @app.route('/auth', methods=["POST", "GET"])

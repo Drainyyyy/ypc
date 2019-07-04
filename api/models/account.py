@@ -41,7 +41,7 @@ class _AcceptedAccount(_BaseAccount):
     :type banned: bool
     """
 
-    __slots__ = [_BaseAccount.__slots__, "admin", "banned"]
+    __slots__ = _BaseAccount.__slots__.extend(["admin", "banned"])
 
     def __init__(self, username: str, password: str, uid: int, admin: bool = False, banned: bool = False):
         super().__init__(username, password, uid)
@@ -73,7 +73,8 @@ class AdminAccount(_AcceptedAccount):
         super().__init__(username, password, uid, admin=True, banned=banned)
 
     def ban(self, member: DefaultAccount):
-        member.banned = True  # TODO make ban screen
+        member.banned = True
+        # TODO make ban with reason
         return self.username
 
 
@@ -98,7 +99,7 @@ class RejectedAccount(_BaseAccount):
     A rejected account is the account of a user that got rejected when registering (which equals applying) for the chat.
     """
 
-    __slots__ = [_BaseAccount.__slots__, "reason"]
+    __slots__ = _BaseAccount.__slots__.extend(["reason"])
 
     def __init__(self, username: str, password: str, uid: int, reason: str):
         super().__init__(username, password, uid)
