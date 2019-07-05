@@ -6,9 +6,15 @@
 
 import typing
 
-from api.utilities import pwhandler
+from ypc.utilities import pwhandler
 
-__all__ = ["DefaultAccount", "AdminAccount", "OwnerAccount", "RejectedAccount"]
+__all__ = (
+    "AcceptedAccount",
+    "DefaultAccount",
+    "AdminAccount",
+    "OwnerAccount",
+    "RejectedAccount"
+)
 
 
 class _BaseAccount:
@@ -30,7 +36,7 @@ class _BaseAccount:
         self.uid = uid
 
 
-class _AcceptedAccount(_BaseAccount):
+class AcceptedAccount(_BaseAccount):    # TODO restructure with account all in one class and AccountTypes
     """Model for an accepted account.
 
     Accepted accounts are accounts that got accepted to join the chat by an administrator of the server.
@@ -41,7 +47,7 @@ class _AcceptedAccount(_BaseAccount):
     :type banned: bool
     """
 
-    __slots__ = _BaseAccount.__slots__.extend(["admin", "banned"])
+    __slots__ = _BaseAccount.__slots__ + ["admin", "banned"]
 
     def __init__(self, username: str, password: str, uid: int, admin: bool = False, banned: bool = False):
         super().__init__(username, password, uid)
@@ -49,7 +55,7 @@ class _AcceptedAccount(_BaseAccount):
         self.banned = banned
 
 
-class DefaultAccount(_AcceptedAccount):
+class DefaultAccount(AcceptedAccount):
     """Model for the default account type.
 
     This account type is for normal users. There are no special permissions or similar given.
@@ -63,7 +69,7 @@ class DefaultAccount(_AcceptedAccount):
         return message
 
 
-class AdminAccount(_AcceptedAccount, DefaultAccount):
+class AdminAccount(AcceptedAccount):
     """Model for the administrator account type.
 
     An administrator account can manage messages and administrate the chat.
@@ -78,7 +84,7 @@ class AdminAccount(_AcceptedAccount, DefaultAccount):
         return self.username
 
 
-class OwnerAccount(_AcceptedAccount, DefaultAccount):
+class OwnerAccount(AcceptedAccount):
     """Model for the account type of the server owner.
 
     The server owner can basically do everything, e.g. ban administrators, which administrator accounts can't.
@@ -93,13 +99,13 @@ class OwnerAccount(_AcceptedAccount, DefaultAccount):
     # TODO more functions
 
 
-class RejectedAccount(_BaseAccount):
+class RejectedAccount(AcceptedAccount):
     """Model for a rejected account.
 
     A rejected account is the account of a user that got rejected when registering (which equals applying) for the chat.
     """
 
-    __slots__ = _BaseAccount.__slots__.extend(["reason"])
+    __slots__ = _BaseAccount.__slots__ + ["reason"]
 
     def __init__(self, username: str, password: str, uid: int, reason: str):
         super().__init__(username, password, uid)
