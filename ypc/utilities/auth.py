@@ -4,15 +4,14 @@
 #  This project is covered by MIT License
 #  https://opensource.org/licenses/MIT
 
-from api.models import Account
-
 # TODO switch to Config instead of users dict
+from ypc.models import account as acc
 
-users = {Account("Drainyyy", "xyz12345", 0)}
+users = {acc.DefaultAccount("Drainyyy", "xyz12345", 0)}
 
 
 class Auth:
-    def __init__(self, account: Account):
+    def __init__(self, account: acc.AcceptedAccount):
         self.account = account
 
     def login(self):
