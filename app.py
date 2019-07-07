@@ -9,16 +9,17 @@ from werkzeug.exceptions import BadRequestKeyError
 from werkzeug.utils import escape
 
 import config
-from ypc.models import account as acc
+from ypc.models import account
+from ypc.models.account import Account
+from ypc.models.enums import AccountType, AccountStatus
 from ypc.utilities.auth import Auth
 
 app = Flask(__name__)
-logged_in = False
+logged_in = Auth(Account("Drainyyy", "xyz12345", 0, AccountType.admin, AccountStatus.accepted))
 
 
 @app.route("/")
 def index():
-    print(request.base_url)
     if logged_in:
         return redirect("/chat")
     else:
@@ -35,7 +36,7 @@ def auth():
     try:
         username = escape(request.form["username"])  # TODO security
         password = request.form["password"]
-        authentication = Auth(acc.DefaultAccount(username, password, 0)).login()
+        authentication = Auth(account.Account(username, password, 0, AccountType.admin, AccountStatus.accepted)).login()
         if authentication:
             return redirect("/chat")
         else:
@@ -46,5 +47,3 @@ def auth():
 
 if __name__ == '__main__':
     app.run(**config.FLASK_RUN_CONFIG)
-
-# pep8
