@@ -4,16 +4,18 @@
 #  This project is covered by MIT License
 #  https://opensource.org/licenses/MIT
 
+__all__ = ["AccountType", "AccountStatus", "MessageType"]
+
 
 class AccountType:
     """The type represents the position of the user in the order of precedence.
 
-    member: The normal type you are when you join the chat for the first time. Member got no special permissions.
+    basic: The normal type you are when you join the chat for the first time. Member got no special permissions.
     admin: If you got the admin password, you can log in as administrator of the chat. Admin has permissions to manage the chat and users.
     owner: Owner is the account whose owner created the chat. Owner can manage the chat and users (including admins).
     """
 
-    member = 0
+    basic = 0
     admin = 1
     owner = 2
 
