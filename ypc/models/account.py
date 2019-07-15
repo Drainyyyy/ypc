@@ -6,7 +6,7 @@
 from ypc.utilities import pwhandler
 from .enums import AccountType, AccountStatus
 
-__all__ = ["Account"]
+__all__ = ["Account", "Bot"]
 
 
 class Account:
@@ -38,7 +38,7 @@ class Account:
         return self.username
 
     def __repr__(self):
-        representer = "<ypc.Account username={} password={} uid={} account_type={} account_status={}".format(
+        representer = "<ypc.Account username={} password={} uid={} account_type={} account_status={}>".format(
             self.username,
             self.password,
             self.uid,
