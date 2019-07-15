@@ -5,20 +5,25 @@
 #  https://opensource.org/licenses/MIT
 
 # TODO switch to Config instead of users dict
-from ypc.models import account as acc
-from ypc.models.enums import AccountType, AccountStatus
+from ypc.models import enums
+from ypc.models.account import Account
 
-users = {acc.Account("Drainyyy", "xyz12345", 0, AccountType.admin, AccountStatus.accepted)}
+accounts = {0: Account("Drainyyy", "abc", 0, enums.AccountType.basic, enums.AccountStatus.accepted)}
 
 
 class Auth:
-    def __init__(self, account: acc.Account):
-        self.account = account
+    """
+    TODO documentation
+    """
+
+    def __init__(self, account: Account):
+        self._username = account.username
+        self._password = account.password
+        self._uid = account.uid
+        self._type = account.type
+        self._status = account.status
 
     def login(self):
-        for acc in users:
-            if acc is self.account:
-                return True
-            else:
-                continue
-        return False
+        account = accounts[self._uid] if self._uid in accounts else 404
+        if account == 404:
+            return None, 404
