@@ -63,5 +63,5 @@ class AccountNotPermittedException(AccountException):
 class AccountBannedException(AccountException):
     """Thrown when an account is banned but want's to perform an action but is not allowed to because it's banned.
 
-    This can be thrown for example when the account tries to login, but is banned.
+    This can be thrown for example when the account tries to login, but is banned. TODO finish
     """
