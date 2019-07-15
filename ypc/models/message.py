@@ -10,7 +10,7 @@ from .enums import MessageType
 from .account import Account
 from ypc.utilities.formatter import timestamp_for_message
 
-__all__ = ["Message"]
+__all__ = ["Message", "Embed"]  # TODO make embed
 
 
 class Message:
@@ -39,7 +39,7 @@ class Message:
         return self.content
 
     def __repr__(self):
-        representer = "<ypc.Message author={} send_at={} message_id={} pinned={} content={} message_type={}".format(
+        representer = "<ypc.Message author={} send_at={} message_id={} pinned={} content={} message_type={}>".format(
             self.author,
             self.sent_at,
             self.id,
