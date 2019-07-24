@@ -8,15 +8,15 @@ from flask import Flask, redirect, request
 from werkzeug.exceptions import BadRequestKeyError
 from werkzeug.utils import escape
 
-import config
+from ypc import config
 from ypc.api.errors import account_exceptions
 from ypc.models import account
 from ypc.models.account import Account
-from ypc.models.enums import AccountType, AccountStatus
+from ypc.models.enums import AccountType, AccountState
 from ypc.utilities.auth import Auth
 
 app = Flask(__name__)
-test_acc = Account("Drainyyy", "xyz12345", 0, AccountType.admin, AccountStatus.accepted)
+test_acc = Account("Drainyyy", "xyz12345", 0, AccountType.admin, AccountState.accepted)
 logged_in = Auth(test_acc)
 
 
@@ -35,7 +35,7 @@ def auth():
     try:
         username = escape(request.form["username"])  # TODO security
         password = request.form["password"]
-        authentication = Auth(account.Account(username, password, 0, AccountType.admin, AccountStatus.accepted)).login()
+        authentication = Auth(account.Account(username, password, 0, AccountType.admin, AccountState.accepted)).login()
         if authentication:
             return redirect("/chat")
         else:
