@@ -8,7 +8,7 @@
 from ypc.models import enums
 from ypc.models.account import Account
 
-accounts = {0: Account("Drainyyy", "abc", 0, enums.AccountType.basic, enums.AccountStatus.accepted)}
+accounts = {0: Account("Drainyyy", "abc", 0, enums.AccountType.basic, enums.AccountState.accepted)}
 
 
 class Auth:
@@ -21,7 +21,7 @@ class Auth:
         self._password = account.password
         self._uid = account.uid
         self._type = account.type
-        self._status = account.status
+        self._status = account.state
 
     def login(self):
         account = accounts[self._uid] if self._uid in accounts else 404
