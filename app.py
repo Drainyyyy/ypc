@@ -22,7 +22,7 @@ logged_in = Auth(test_acc)
 
 @app.route("/")
 def index():
-    raise account_exceptions.AccountException(test_acc)
+    raise account_exceptions.AccountNotPermittedException(test_acc)
 
 
 @app.route("/login", methods=["POST", "GET"])
