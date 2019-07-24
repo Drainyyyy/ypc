@@ -4,7 +4,7 @@
 #  This project is covered by MIT License
 #  https://opensource.org/licenses/MIT
 
-__all__ = ["AccountType", "AccountStatus", "MessageType"]
+__all__ = ["AccountType", "AccountState", "AccountStatus", "MessageType"]
 
 
 class AccountType:
@@ -20,8 +20,8 @@ class AccountType:
     owner = 2
 
 
-class AccountStatus:
-    """The status represents in which status the account is.
+class AccountState:
+    """The state represents in which state the account is.
 
     accepted: Shows that the user got accepted for joining the chat by an administrator.
     rejected: The opposite of accepted. Shows that you got rejected for joining the chat by an administrator.
@@ -31,6 +31,17 @@ class AccountStatus:
     accepted = 0
     rejected = 1
     banned = 2
+
+
+class AccountStatus:
+    """The status indicates the status of the rights of the account.
+
+    muted: The account can not send messages anymore.
+    blocked: The member can neither send messages nor read messages.
+    """
+
+    muted = 0
+    blocked = 1
 
 
 class MessageType:
