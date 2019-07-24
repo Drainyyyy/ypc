@@ -3,6 +3,7 @@
 #  Copyright (c) 2019. Drainyyy
 #  This project is covered by MIT License
 #  https://opensource.org/licenses/MIT
+
 from ypc.models.account import Account
 
 __all__ = ["AccountException"]
@@ -65,3 +66,4 @@ class AccountBannedException(AccountException):
 
     This can be thrown for example when the account tries to login, but is banned. TODO finish
     """
+
