@@ -7,7 +7,7 @@
 from datetime import datetime
 
 from .enums import MessageType
-from .account import Account
+from .client import Client
 from ypc.utilities.formatter import timestamp_for_message
 
 __all__ = ["Message", "Embed"]  # TODO make embed
@@ -26,7 +26,7 @@ class Message:
 
     __slots__ = ["author", "sent_at", "id", "pinned", "content", "mentions", "type"]
 
-    def __init__(self, author: Account, timestamp: datetime, message_id: int, pinned: bool, content: str, message_type: MessageType):
+    def __init__(self, author: Client, timestamp: datetime, message_id: int, pinned: bool, content: str, message_type: MessageType):
         self.author = author
         self.sent_at = timestamp_for_message(timestamp)
         self.id = message_id
@@ -39,7 +39,7 @@ class Message:
         return self.content
 
     def __repr__(self):
-        representer = "<ypc.Message author={} send_at={} message_id={} pinned={} content={} message_type={}>".format(
+        representation = "<ypc.Message author={} send_at={} message_id={} pinned={} content={} message_type={}>".format(
             self.author,
             self.sent_at,
             self.id,
@@ -47,4 +47,4 @@ class Message:
             self.content,
             self.type
         )
-        return representer
+        return representation

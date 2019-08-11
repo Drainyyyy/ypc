@@ -6,9 +6,10 @@
 
 # TODO switch to Config instead of users dict
 from ypc.models import enums
-from ypc.models.account import Account
+from ypc.models.client import Client
+from ypc.models.enums import ClientStatus
 
-accounts = {0: Account("Drainyyy", "abc", 0, enums.AccountType.basic, enums.AccountState.accepted)}
+clients = {0: Client("Drainyyy", "abc", 0, enums.ClientType.basic, enums.ClientState.accepted, ClientStatus.fine)}
 
 
 class Auth:
@@ -16,14 +17,14 @@ class Auth:
     TODO documentation
     """
 
-    def __init__(self, account: Account):
-        self._username = account.username
-        self._password = account.password
-        self._uid = account.uid
-        self._type = account.type
-        self._status = account.state
+    def __init__(self, client: Client):
+        self._username = client.username
+        self._password = client.password
+        self._uid = client.uid
+        self._type = client.type
+        self._status = client.state
 
     def login(self):
-        account = accounts[self._uid] if self._uid in accounts else 404
-        if account == 404:
+        client = clients[self._uid] if self._uid in clients else 404
+        if client == 404:
             return None, 404

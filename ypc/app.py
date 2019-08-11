@@ -8,21 +8,20 @@ from flask import Flask, redirect, request
 from werkzeug.exceptions import BadRequestKeyError
 from werkzeug.utils import escape
 
-from ypc import config
-from ypc.api.errors import account_exceptions
-from ypc.models import account
-from ypc.models.account import Account
-from ypc.models.enums import AccountType, AccountState
+from ypc import config, errors
+from ypc.models import client
+from ypc.models.client import Client
+from ypc.models.enums import ClientStatus, ClientState, ClientType
 from ypc.utilities.auth import Auth
 
 app = Flask(__name__)
-test_acc = Account("Drainyyy", "xyz12345", 0, AccountType.admin, AccountState.accepted)
-logged_in = Auth(test_acc)
+test_client = Client("Drainyyy", "xyz12345", 0, ClientType.admin, ClientState.accepted, ClientStatus.fine)
+logged_in = Auth(test_client)
 
 
 @app.route("/")
 def index():
-    raise account_exceptions.AccountNotPermittedException(test_acc)
+    raise errors.ClientNotPermittedException(test_client)
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -35,7 +34,7 @@ def auth():
     try:
         username = escape(request.form["username"])  # TODO security
         password = request.form["password"]
-        authentication = Auth(account.Account(username, password, 0, AccountType.admin, AccountState.accepted)).login()
+        authentication = Auth(client.Client(username, password, 0, ClientType.admin, ClientState.accepted, ClientStatus.fine)).login()
         if authentication:
             return redirect("/chat")
         else:
