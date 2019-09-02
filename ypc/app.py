@@ -8,11 +8,12 @@ from flask import Flask, redirect, request
 from werkzeug.exceptions import BadRequestKeyError
 from werkzeug.utils import escape
 
-from ypc import config, errors
+from ypc.utilities.color import Rgb
+from ypc import config
 from ypc.models import client
 from ypc.models.client import Client
 from ypc.models.enums import ClientStatus, ClientState, ClientType
-from ypc.utilities.auth import Auth
+from ypc.auth import Auth
 
 app = Flask(__name__)
 test_client = Client("Drainyyy", "xyz12345", 0, ClientType.admin, ClientState.accepted, ClientStatus.fine)
@@ -21,7 +22,8 @@ logged_in = Auth(test_client)
 
 @app.route("/")
 def index():
-    raise errors.ClientNotPermittedException(test_client)
+    print(str(Rgb(255, 255, 255)))
+    return "abc"
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -29,7 +31,7 @@ def sign():
     return None
 
 
-@app.route('/auth', methods=["POST", "GET"])
+@app.route("/auth", methods=["POST", "GET"])
 def auth():
     try:
         username = escape(request.form["username"])  # TODO security
@@ -43,5 +45,5 @@ def auth():
         return redirect("/login")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(**config.FLASK_RUN_CONFIG)
