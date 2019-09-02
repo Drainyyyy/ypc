@@ -23,14 +23,16 @@ class ClientType:
 class ClientState:
     """The state represents in which state the client is.
 
+    pending: In the time between the client requesting to join the server and the owner reviewing the client, the state is pending.
     accepted: Shows that the user got accepted for joining the chat by an administrator.
     rejected: The opposite of accepted. Shows that you got rejected for joining the chat by an administrator.
     banned: self-explaining
     """
 
-    accepted = 0
-    rejected = 1
-    banned = 2
+    pending = 0
+    accepted = 1
+    rejected = 2
+    banned = 3
 
 
 class ClientStatus:
@@ -38,12 +40,10 @@ class ClientStatus:
 
     fine: The client is usable and has no penalties.
     muted: The client can not send messages anymore.
-    blocked: The member can neither send messages nor read messages.
     """
 
     fine = 0
     muted = 1
-    blocked = 2
 
 
 class MessageType:
